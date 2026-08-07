@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>髙橋純子 | 事務職からエンジニアへ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1B2430;
+    --ink-deep: #141B24;
+    --paper: #F5F1E8;
+    --paper-line: #DAD2BE;
+    --text-main: #EDE6D6;
+    --text-sub: #A9AFB9;
+    --seal: #B0472E;
+    --thread: #4FA285;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--ink);
+    color: var(--text-main);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* 帳簿の罫線を思わせる背景 */
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 47px,
+      rgba(255,255,255,0.035) 47px,
+      rgba(255,255,255,0.035) 48px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1, h2, .display{
+    font-family: 'Zen Old Mincho', serif;
+    letter-spacing: 0.04em;
+  }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--thread);
+    text-transform: uppercase;
+  }
+
+  /* ===== ヘッダー ===== */
+  header{
+    padding: 108px 0 88px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .seal{
+    flex-shrink: 0;
+    width: 92px;
+    height: 92px;
+    border: 2.5px solid var(--seal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--seal);
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    transform: scale(1.6) rotate(-14deg);
+    opacity: 0;
+    animation: stamp 0.5s cubic-bezier(.2,1.6,.4,1) 0.3s forwards;
+  }
+
+  @keyframes stamp{
+    0%{ opacity: 0; transform: scale(2.4) rotate(-14deg); filter: blur(1px);}
+    60%{ opacity: 0.9; }
+    100%{ opacity: 0.92; transform: scale(1) rotate(-8deg); filter: blur(0);}
+  }
+
+  .header-text h1{
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .header-text .role{
+    font-size: 0.98rem;
+    color: var(--text-sub);
+  }
+
+  /* ===== 罫線見出し ===== */
+  .ledger-divider{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 34px;
+  }
+
+  .ledger-divider .num{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--thread);
+    border: 1px solid var(--thread);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .ledger-divider .line{
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.14);
+  }
+
+  section{
+    padding: 64px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  section h2{
+    font-size: 1.5rem;
+    margin-bottom: 28px;
+  }
+
+  /* ===== 自己紹介 ===== */
+  .intro p{
+    font-size: 1.02rem;
+    color: var(--text-main);
+    margin-bottom: 18px;
+    max-width: 60ch;
+  }
+
+  .intro .note{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--thread);
+    margin-top: 22px;
+  }
+
+  /* ===== プロジェクト ===== */
+  .project-card{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 30px 32px;
+    margin-bottom: 22px;
+    position: relative;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+  }
+
+  .project-card::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--thread);
+  }
+
+  .project-card .tag{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--seal);
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .project-card h3{
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.22rem;
+    margin-bottom: 10px;
+  }
+
+  .project-card p{
+    font-size: 0.94rem;
+    color: #4A4438;
+    margin-bottom: 14px;
+  }
+
+  .project-card a{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+  }
+
+  .project-card a:hover{
+    color: var(--seal);
+    border-color: var(--seal);
+  }
+
+  /* ===== お問い合わせ ===== */
+  .contact{
+    text-align: center;
+    padding: 80px 0 120px;
+  }
+
+  .contact p{
+    color: var(--text-sub);
+    margin-bottom: 30px;
+  }
+
+  .cta{
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-deep);
+    background: var(--thread);
+    padding: 16px 38px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .cta:hover{
+    background: #6ec6a4;
+    transform: translateY(-2px);
+  }
+
+  .cta:focus-visible{
+    outline: 2px solid var(--paper);
+    outline-offset: 3px;
+  }
+
+  footer{
+    text-align: center;
+    padding: 30px 0 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.28);
+  }
+
+  @media (max-width: 560px){
+    header{ flex-direction: column; align-items: flex-start; gap: 22px; padding-top: 80px;}
+    .seal{ transform: scale(1.3) rotate(-14deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal{ animation: none; opacity: 0.92; transform: rotate(-8deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="seal">純</div>
+    <div class="header-text">
+      <h1>髙橋純子</h1>
+      <p class="role">事務職からエンジニアへ — AIと組んで、使えるシステムを作っています</p>
+    </div>
+  </header>
+
+  <section class="intro" id="about">
+    <div class="ledger-divider">
+      <span class="num">01</span>
+      <span class="line"></span>
+    </div>
+    <h2>自己紹介</h2>
+    <p>事務職からエンジニアへ転向中。20年以上、経理・学校事務・医局事務などバックオフィス業務に携わってきました。今はAIと一緒にコードを書きながら、実際に使えるシステムを作っています。</p>
+    <p>「話し言葉で壁打ちしながら、着実に形にする」のが自分のスタイルです。</p>
+    <div class="note">// 現場を知っているからこそ、使う人の手間に気づける</div>
+  </section>
+
+  <section id="projects">
+    <div class="ledger-divider">
+      <span class="num">02</span>
+      <span class="line"></span>
+    </div>
+    <h2>作ったもの</h2>
+
+    <div class="project-card">
+      <span class="tag">WEB APP / FastAPI・SQLite・Streamlit</span>
+      <h3>ボウリングレーン予約システム</h3>
+      <p>JWT認証とロール別画面を備えた、レーン予約Webアプリ。教室運営から一般利用まで想定した予約フローを設計・実装しました。</p>
+      <a href="https://github.com/Junko-Takahashi-Cloud/bowling-lane-reservation-system" target="_blank" rel="noopener">GitHubで見る →</a>
+    </div>
+
+    <div class="project-card">
+      <span class="tag">TOOL / Python</span>
+      <h3>Excel⇄CSV 変換ツール</h3>
+      <p>Pythonで初めて作ったツール。日々の事務作業で感じていた「毎回手作業でやっている面倒」をそのままプログラムに落とし込みました。</p>
+      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">GitHubで見る →</a>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="ledger-divider">
+      <span class="num">03</span>
+      <span class="line"></span>
+    </div>
+    <h2>お仕事のご相談</h2>
+    <p>「こんな仕組みが欲しい」というお話、まずは気軽にどうぞ。</p>
+    <a class="cta" href="#" target="_blank" rel="noopener">ご相談・お見積りはこちら</a>
+  </section>
+
+  <footer>
+    © 2026 Junko Takahashi
+  </footer>
+
+</div>
+
+</body>
+</html>
