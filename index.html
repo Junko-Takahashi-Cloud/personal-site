@@ -161,6 +161,35 @@
     margin-top: 8px;
   }
 
+  nav.site-nav{
+    padding: 0 0 40px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  nav.site-nav a{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--text-sub);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  nav.site-nav a:hover,
+  nav.site-nav a:focus-visible{
+    color: var(--thread);
+    border-color: var(--thread);
+  }
+
+  nav.site-nav a.current{
+    color: var(--thread);
+    border-color: var(--thread);
+  }
+
   /* ===== 罫線見出し ===== */
   .ledger-divider{
     display: flex;
@@ -636,6 +665,15 @@
       <p class="role-sub">// 現場の「困った」を知っているから、使う人の手間に気づける仕組みを作る</p>
     </div>
   </header>
+
+  <nav class="site-nav">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Works</a>
+    <a href="devlog.html">Devlog</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
 
   <section class="intro" id="about">
     <div class="ledger-divider">
