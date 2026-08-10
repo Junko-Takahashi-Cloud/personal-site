@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devlog | 髙橋純子</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #1B2430;
+    --ink-deep: #141B24;
+    --paper: #F5F1E8;
+    --paper-line: #DAD2BE;
+    --text-main: #EDE6D6;
+    --text-sub: #A9AFB9;
+    --seal: #B0472E;
+    --thread: #4FA285;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background: var(--ink);
+    color: var(--text-main);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 47px,
+      rgba(255,255,255,0.035) 47px,
+      rgba(255,255,255,0.035) 48px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1, h2, .display{
+    font-family: 'Zen Old Mincho', serif;
+    letter-spacing: 0.04em;
+  }
+
+  header{
+    padding: 88px 0 32px;
+  }
+
+  header h1{
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  header .role{
+    font-size: 0.94rem;
+    color: var(--text-sub);
+    max-width: 56ch;
+  }
+
+  nav.site-nav{
+    padding: 0 0 40px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  nav.site-nav a{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--text-sub);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  nav.site-nav a:hover,
+  nav.site-nav a:focus-visible{
+    color: var(--thread);
+    border-color: var(--thread);
+  }
+
+  nav.site-nav a.current{
+    color: var(--thread);
+    border-color: var(--thread);
+  }
+
+  .ledger-divider{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 34px;
+  }
+
+  .ledger-divider .num{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--thread);
+    border: 1px solid var(--thread);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .ledger-divider .line{
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.14);
+  }
+
+  section{
+    padding: 56px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  section h2{
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+
+  section > .lede{
+    font-size: 0.94rem;
+    color: var(--text-sub);
+    max-width: 58ch;
+    margin-bottom: 30px;
+  }
+
+  /* ===== ステータスカード ===== */
+  .status-card{
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+    padding: 26px 30px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+  }
+
+  .status-card::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 4px;
+  }
+
+  .status-card.completed::before{ background: var(--thread); }
+  .status-card.next::before{ background: var(--seal); }
+  .status-card.planned::before{ background: var(--paper-line); }
+
+  .status-card .top-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .status-card .date{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: #8a8065;
+  }
+
+  .status-card .badge{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .status-card.completed .badge{ background: rgba(79,162,133,0.16); color: #2f6e56; }
+  .status-card.next .badge{ background: rgba(176,71,46,0.14); color: var(--seal); }
+  .status-card.planned .badge{ background: rgba(74,68,56,0.08); color: #6b6556; }
+
+  .status-card h3{
+    font-family: 'Zen Old Mincho', serif;
+    font-size: 1.14rem;
+    margin-bottom: 10px;
+  }
+
+  .status-card p{
+    font-size: 0.92rem;
+    color: #4A4438;
+    margin-bottom: 8px;
+  }
+
+  .status-card p:last-of-type{
+    margin-bottom: 0;
+  }
+
+  footer{
+    text-align: center;
+    padding: 30px 0 50px;
+  }
+
+  .footer-links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  .footer-links a{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--text-sub);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .footer-links a:hover{
+    color: var(--thread);
+    border-color: var(--thread);
+  }
+
+  footer .copyright{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.28);
+  }
+
+  @media (max-width: 560px){
+    .status-card .top-row{ flex-direction: column; align-items: flex-start; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <h1>Development Log</h1>
+    <p class="role">制作記録とこれから — 今まで作ったもの、今取り組んでいること、次にやること</p>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html#about">About</a>
+    <a href="index.html#skills">Skills</a>
+    <a href="index.html#projects">Works</a>
+    <a href="devlog.html" class="current">Devlog</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+
+  <section id="log">
+    <div class="ledger-divider">
+      <span class="num">01</span>
+      <span class="line"></span>
+    </div>
+    <h2>①今まで</h2>
+    <p class="lede">スポーツボウリング場構想を、実際に建設するとしたら何が必要かを考えながら、段階を追ってシステムを作っています。AIと相談しながら、設計→実装→見直しを繰り返しています。</p>
+
+    <div class="status-card completed">
+      <div class="top-row">
+        <span class="date">2026.08</span>
+        <span class="badge">Status: Completed</span>
+      </div>
+      <h3>第二弾 — 予約システムの発展</h3>
+      <p>初心者教室・クラウドファンディング特典などの機能を追加。第一弾の基本予約機能から、実際のボウリング場運営を想定した形へ拡張しました。</p>
+    </div>
+
+    <div class="status-card completed">
+      <div class="top-row">
+        <span class="date">2026.06</span>
+        <span class="badge">Status: Completed</span>
+      </div>
+      <h3>第一弾 — ボウリングレーン予約システム</h3>
+      <p>JWT認証・ロール別画面を備えたレーン予約Webアプリ。構想全体の土台となる予約機能を実装しました。</p>
+    </div>
+  </section>
+
+  <section id="now">
+    <div class="ledger-divider">
+      <span class="num">02</span>
+      <span class="line"></span>
+    </div>
+    <h2>②今</h2>
+
+    <div class="status-card next">
+      <div class="top-row">
+        <span class="date">NEXT</span>
+        <span class="badge">Status: Next</span>
+      </div>
+      <h3>第三弾 — 店舗・スタッフ管理システム</h3>
+      <p>利用者が予約したあと、店舗側では何を管理するのかを考える段階。スタッフログイン、当日予約一覧、来店受付、レーン稼働状況、教室運営、売上・利用履歴など、運営者目線でシステムを設計していきます。</p>
+    </div>
+  </section>
+
+  <section id="future">
+    <div class="ledger-divider">
+      <span class="num">03</span>
+      <span class="line"></span>
+    </div>
+    <h2>③これから</h2>
+
+    <div class="status-card planned">
+      <div class="top-row">
+        <span class="date">FUTURE</span>
+        <span class="badge">Status: Planned</span>
+      </div>
+      <h3>第四弾 — 会員・成長支援システム</h3>
+      <p>会員カルテ、投球記録、成長記録など、「予約する」から「続けて成長する」ための仕組みへ。それぞれの目標に合わせて成長できる場を目指します。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://qiita.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">Qiita</a>
+      <a href="https://zenn.dev/junko_jp" target="_blank" rel="noopener">Zenn</a>
+      <a href="https://note.com/junko_ai" target="_blank" rel="noopener">note</a>
+      <a href="https://www.linkedin.com/in/%E7%B4%94%E5%AD%90-%E9%AB%99%E6%A9%8B-45683041a/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="copyright">© 2026 Junko Takahashi</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
