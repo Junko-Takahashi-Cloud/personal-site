@@ -1,904 +1,949 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>髙橋純子 | 事務職からエンジニアへ</title>
-<meta name="description" content="事務職からエンジニアへ転向中。20年以上のバックオフィス経験を活かし、AIと組んでWebシステムや業務自動化ツールを作っています。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="髙橋純子 | 事務職からエンジニアへ">
-<meta property="og:description" content="事務職からエンジニアへ転向中。20年以上のバックオフィス経験を活かし、AIと組んでWebシステムや業務自動化ツールを作っています。">
-<meta property="og:url" content="https://junko-takahashi-cloud.github.io/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="髙橋純子 | 事務職からエンジニアへ">
-<meta name="twitter:description" content="事務職からエンジニアへ転向中。20年以上のバックオフィス経験を活かし、AIと組んでWebシステムや業務自動化ツールを作っています。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink: #1B2430;
-    --ink-deep: #141B24;
-    --paper: #F5F1E8;
-    --paper-line: #DAD2BE;
-    --text-main: #EDE6D6;
-    --text-sub: #A9AFB9;
-    --seal: #B0472E;
-    --thread: #4FA285;
-  }
-
-  *{box-sizing:border-box; margin:0; padding:0;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    background: var(--ink);
-    color: var(--text-main);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    line-height: 1.9;
-    overflow-x: hidden;
-  }
-
-  /* 帳簿の罫線を思わせる背景 */
-  body::before{
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 47px,
-      rgba(255,255,255,0.035) 47px,
-      rgba(255,255,255,0.035) 48px
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .wrap{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 28px;
-    position: relative;
-    z-index: 1;
-  }
-
-  h1, h2, .display{
-    font-family: 'Zen Old Mincho', serif;
-    letter-spacing: 0.04em;
-  }
-
-  .eyebrow{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    color: var(--thread);
-    text-transform: uppercase;
-  }
-
-  /* ===== ヘッダー ===== */
-  header{
-    padding: 108px 0 88px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .seal{
-    flex-shrink: 0;
-    width: 92px;
-    height: 92px;
-    border: 2.5px solid var(--seal);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--seal);
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    transform: scale(1.6) rotate(-14deg);
-    opacity: 0;
-    animation: stamp 0.5s cubic-bezier(.2,1.6,.4,1) 0.3s forwards;
-    cursor: pointer;
-    position: relative;
-    transition: transform 0.15s ease;
-  }
-
-  .seal:hover{
-    transform: rotate(-8deg) scale(1.05);
-  }
-
-  .seal:focus-visible{
-    outline: 2px solid var(--thread);
-    outline-offset: 4px;
-  }
-
-  .seal.pressed{
-    animation: seal-press 0.4s ease;
-  }
-
-  @keyframes seal-press{
-    0%{ transform: rotate(-8deg) scale(0.88); filter: brightness(1.3); }
-    100%{ transform: rotate(-8deg) scale(1); filter: brightness(1); }
-  }
-
-  .seal-tooltip{
-    position: absolute;
-    top: 108%;
-    left: 50%;
-    transform: translateX(-50%) translateY(4px);
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    padding: 6px 14px;
-    border-radius: 2px;
-    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-
-  .seal-tooltip.visible{
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  @keyframes stamp{
-    0%{ opacity: 0; transform: scale(2.4) rotate(-14deg); filter: blur(1px);}
-    60%{ opacity: 0.9; }
-    100%{ opacity: 0.92; transform: scale(1) rotate(-8deg); filter: blur(0);}
-  }
-
-  .header-text h1{
-    font-size: 2.1rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .header-text .role{
-    font-size: 0.98rem;
-    color: var(--text-sub);
-  }
-
-  .header-text .role-sub{
-    font-size: 0.86rem;
-    color: var(--thread);
-    margin-top: 8px;
-  }
-
-  nav.site-nav{
-    padding: 0 0 40px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  nav.site-nav a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    color: var(--text-sub);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  nav.site-nav a:hover,
-  nav.site-nav a:focus-visible{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
-
-  nav.site-nav a.current{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
-
-  /* ===== 罫線見出し ===== */
-  .ledger-divider{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 0 0 34px;
-  }
-
-  .ledger-divider .num{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--thread);
-    border: 1px solid var(--thread);
-    padding: 2px 8px;
-    border-radius: 2px;
-  }
-
-  .ledger-divider .line{
-    flex: 1;
-    height: 1px;
-    background: rgba(255,255,255,0.14);
-  }
-
-  section{
-    padding: 64px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  section h2{
-    font-size: 1.5rem;
-    margin-bottom: 28px;
-  }
-
-  /* ===== 自己紹介 ===== */
-  .intro p{
-    font-size: 1.02rem;
-    color: var(--text-main);
-    margin-bottom: 18px;
-    max-width: 60ch;
-  }
-
-  .intro .note{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    color: var(--thread);
-    margin-top: 22px;
-  }
-
-  /* ===== 経歴帳(タイムライン) ===== */
-  .career-ledger{
-    margin-top: 36px;
-    border-left: 1px solid rgba(255,255,255,0.16);
-    padding-left: 0;
-  }
-
-  .career-row{
-    display: grid;
-    grid-template-columns: 128px 1fr;
-    gap: 20px;
-    padding: 16px 0 16px 24px;
-    position: relative;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .career-row:last-child{
-    border-bottom: none;
-  }
-
-  .career-row::before{
-    content: "";
-    position: absolute;
-    left: -5px;
-    top: 24px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--ink);
-    border: 1.5px solid var(--thread);
-  }
-
-  .career-row .stage{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.74rem;
-    color: var(--thread);
-    letter-spacing: 0.06em;
-    padding-top: 2px;
-  }
-
-  .career-row .detail h4{
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 4px;
-    color: var(--text-main);
-  }
-
-  .career-row .detail p{
-    font-size: 0.88rem;
-    color: var(--text-sub);
-  }
-
-  @media (max-width: 560px){
-    .career-row{ grid-template-columns: 1fr; gap: 4px; }
-  }
-
-  /* ===== できること(道具棚) ===== */
-  .toolshelf{
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .tool-row{
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .tool-row:last-child{
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .tool-row .stack{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.86rem;
-    color: var(--text-main);
-    letter-spacing: 0.02em;
-  }
-
-  .tool-row .use{
-    font-size: 0.9rem;
-    color: var(--text-sub);
-  }
-
-  @media (max-width: 560px){
-    .tool-row{ grid-template-columns: 1fr; gap: 6px; }
-  }
-
-  /* ===== プロジェクト ===== */
-  .project-card{
-    background: var(--paper);
-    color: var(--ink);
-    border-radius: 3px;
-    padding: 30px 32px;
-    margin-bottom: 22px;
-    position: relative;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.28);
-  }
-
-  .project-card::before{
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--thread);
-  }
-
-  .project-card .tag{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    color: var(--seal);
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-
-  .project-card h3{
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1.22rem;
-    margin-bottom: 16px;
-  }
-
-  .project-card .beat{
-    margin-bottom: 12px;
-  }
-
-  .project-card .beat .label{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    color: var(--seal);
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .project-card .beat p{
-    font-size: 0.92rem;
-    color: #4A4438;
-  }
-
-  .project-card a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 1px;
-    display: inline-block;
-    margin-top: 6px;
-  }
-
-  .project-card a:hover{
-    color: var(--seal);
-    border-color: var(--seal);
-  }
-
-  .ai-devlog{
-    margin-top: 40px;
-    padding: 26px 28px;
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 3px;
-    position: relative;
-  }
-
-  .ai-devlog::before{
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--thread);
-  }
-
-  .ai-devlog .tag{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    color: var(--thread);
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .ai-devlog h4{
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1.05rem;
-    margin-bottom: 10px;
-    color: var(--text-main);
-  }
-
-  .ai-devlog p{
-    font-size: 0.9rem;
-    color: var(--text-sub);
-    margin-bottom: 14px;
-  }
-
-  .ai-devlog a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    color: var(--thread);
-    text-decoration: none;
-    border-bottom: 1px solid var(--thread);
-    padding-bottom: 1px;
-  }
-
-  .ai-devlog a:hover{
-    color: #6ec6a4;
-    border-color: #6ec6a4;
-  }
-  .menu-title{
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1.1rem;
-    margin: 48px 0 22px;
-    color: var(--text-main);
-  }
-
-  .menu-list{
-    border-top: 1px solid rgba(255,255,255,0.14);
-  }
-
-  .menu-item{
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 16px;
-    align-items: baseline;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.14);
-  }
-
-  .menu-item .name{
-    font-size: 0.98rem;
-    color: var(--text-main);
-  }
-
-  .menu-item .name span{
-    display: block;
-    font-size: 0.82rem;
-    color: var(--text-sub);
-    margin-top: 4px;
-  }
-
-  .menu-item .price{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.86rem;
-    color: var(--thread);
-    white-space: nowrap;
-  }
-
-  .menu-note{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--text-sub);
-    margin-top: 16px;
-  }
-
-  /* ===== お問い合わせ ===== */
-  .contact{
-    padding: 80px 0 120px;
-  }
-
-  .contact > p{
-    color: var(--text-sub);
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  .contact-form{
-    background: var(--paper);
-    color: var(--ink);
-    border-radius: 3px;
-    padding: 32px;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.28);
-    position: relative;
-  }
-
-  .contact-form::before{
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--seal);
-  }
-
-  .contact-form label{
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.74rem;
-    letter-spacing: 0.06em;
-    color: var(--seal);
-    margin-bottom: 6px;
-  }
-
-  .contact-form .field{
-    margin-bottom: 18px;
-  }
-
-  .contact-form input,
-  .contact-form select,
-  .contact-form textarea{
-    width: 100%;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 0.94rem;
-    color: var(--ink);
-    background: #fff;
-    border: 1px solid var(--paper-line);
-    border-radius: 2px;
-    padding: 11px 13px;
-  }
-
-  .contact-form input:focus,
-  .contact-form select:focus,
-  .contact-form textarea:focus{
-    outline: none;
-    border-color: var(--thread);
-  }
-
-  .contact-form textarea{
-    min-height: 120px;
-    resize: vertical;
-  }
-
-  .contact-form .cta{
-    width: 100%;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.92rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-deep);
-    background: var(--thread);
-    padding: 16px 38px;
-    border-radius: 2px;
-    transition: transform 0.15s ease, background 0.15s ease;
-  }
-
-  .contact-form .cta:hover{
-    background: #6ec6a4;
-    transform: translateY(-2px);
-  }
-
-  .contact-form .cta:focus-visible{
-    outline: 2px solid var(--ink);
-    outline-offset: 3px;
-  }
-
-  .contact-fallback{
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--text-sub);
-    margin-top: 20px;
-  }
-
-  .contact-fallback a{
-    color: var(--thread);
-  }
-
-  footer{
-    text-align: center;
-    padding: 30px 0 50px;
-  }
-
-  .footer-links{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  .footer-links a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
-    letter-spacing: 0.04em;
-    color: var(--text-sub);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 1px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .footer-links a:hover{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
-
-  footer .copyright{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.28);
-  }
-
-  @media (max-width: 560px){
-    header{ flex-direction: column; align-items: flex-start; gap: 22px; padding-top: 80px;}
-    .seal{ transform: scale(1.3) rotate(-14deg); }
-    .menu-item{ grid-template-columns: 1fr; gap: 4px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .seal{ animation: none; opacity: 0.92; transform: rotate(-8deg); }
-    .seal.pressed{ animation: none; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>業務理解 × AI活用 × システム化 | Junko Takahashi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- CSS RESET & VARIABLES --- */
+    :root {
+      --primary: #1E3A8A;
+      --primary-light: #3B82F6;
+      --accent: #0D9488;
+      --bg-dark: #0F172A;
+      --bg-light: #F8FAFC;
+      --bg-card: #ffe0ef;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--text-main);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* --- HEADER & NAV --- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-light);
+    }
+
+    /* Mobile Hamburger Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    /* --- LAYOUT UTILITIES --- */
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-size: 0.95rem;
+    }
+
+    /* --- HOME / HERO --- */
+    .hero {
+      padding-top: 8rem;
+      padding-bottom: 4rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #EFF6FF;
+      color: var(--primary-light);
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      color: var(--bg-dark);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      background: #FFF;
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-light);
+    }
+
+    /* --- HANKO SEAL (印) --- */
+    .seal-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .seal {
+      --seal-red: #B0472E;
+      flex-shrink: 0;
+      width: 148px;
+      height: 148px;
+      border: 3.5px solid var(--seal-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--seal-red);
+      font-family: 'Zen Old Mincho', 'Hiragino Mincho ProN', serif;
+      font-size: 3.6rem;
+      font-weight: 700;
+      transform: scale(1.6) rotate(-14deg);
+      opacity: 0;
+      animation: stamp 0.5s cubic-bezier(.2,1.6,.4,1) 0.3s forwards;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s ease;
+    }
+
+    .seal:hover {
+      transform: rotate(-8deg) scale(1.05);
+    }
+
+    .seal:focus-visible {
+      outline: 2px solid var(--primary-light);
+      outline-offset: 4px;
+    }
+
+    .seal.pressed {
+      animation: seal-press 0.4s ease;
+    }
+
+    @keyframes seal-press {
+      0% { transform: rotate(-8deg) scale(0.88); filter: brightness(1.3); }
+      100% { transform: rotate(-8deg) scale(1); filter: brightness(1); }
+    }
+
+    .seal-tooltip {
+      position: absolute;
+      top: 108%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--primary);
+      color: #FFF;
+      font-family: 'Zen Old Mincho', 'Hiragino Mincho ProN', serif;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      padding: 6px 14px;
+      border-radius: 4px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .seal-tooltip.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @keyframes stamp {
+      0% { opacity: 0; transform: scale(2.4) rotate(-14deg); filter: blur(1px); }
+      60% { opacity: 0.92; }
+      100% { opacity: 1; transform: scale(1) rotate(-8deg); filter: blur(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .seal { animation: none; opacity: 1; transform: rotate(-8deg); }
+      .seal.pressed { animation: none; }
+    }
+
+    @media (max-width: 560px) {
+      .seal { width: 116px; height: 116px; font-size: 2.8rem; transform: scale(1.3) rotate(-14deg); }
+    }
+
+    /* --- VALUE PROPOSITION (3-PILLARS) --- */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.8rem;
+      text-align: left;
+    }
+
+    .value-step {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .value-card h3 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+
+    .value-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* --- SERVICE --- */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* --- WORKS (CLASSIFIED) --- */
+    .works-category {
+      margin-bottom: 3rem;
+    }
+
+    .works-category-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .work-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .work-header {
+      margin-bottom: 1rem;
+    }
+
+    .work-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag-achievement {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .tag-concept {
+      background: #EFF6FF;
+      color: #1E40AF;
+    }
+
+    .tag-verification {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .work-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .process-timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed var(--border);
+    }
+
+    .process-step {
+      background: var(--bg-light);
+      padding: 1rem;
+      border-radius: 6px;
+    }
+
+    .process-step-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .process-step-desc {
+      font-size: 0.82rem;
+      color: var(--text-main);
+    }
+
+    /* --- ABOUT --- */
+    .about-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .about-text {
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .history-timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--primary-light);
+    }
+
+    .history-item {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .history-item::before {
+      content: '';
+      position: absolute;
+      left: -1.95rem;
+      top: 0.3rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary-light);
+    }
+
+    .history-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .history-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* --- EXTERNAL CHANNELS / MEDIA --- */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .channel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .channel-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .channel-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .channel-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+
+    .channel-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .channel-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--bg-light);
+      color: var(--text-muted);
+    }
+
+    /* --- CONTACT --- */
+    .contact-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-channels {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-channels a,
+    .footer-channels span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .footer-channels a:hover {
+      color: var(--primary-light);
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #FFFFFF;
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        gap: 1rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+
+      .process-timeline {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrap">
-
+  <!-- HEADER -->
   <header>
-    <div class="seal" id="headerSeal" role="button" tabindex="0" aria-label="ようこそのご挨拶を表示">
-      純
-      <span class="seal-tooltip" id="sealTooltip">ようこそ</span>
-    </div>
-    <div class="header-text">
-      <h1>髙橋純子</h1>
-      <p class="role">事務職からエンジニアへ — AIと組んで、使えるシステムを作っています</p>
-      <p class="role-sub">// 現場の「困った」を知っているから、使う人の手間に気づける仕組みを作る</p>
+    <div class="nav-container">
+      <a href="#home" class="logo">Junko Takahashi</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#service">SERVICE</a></li>
+        <li><a href="#works">WORKS</a></li>
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#channels">MEDIA & OUTLET</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
     </div>
   </header>
 
-  <nav class="site-nav">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Works</a>
-    <a href="devlog.html">Devlog</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-
-  <section class="intro" id="about">
-    <div class="ledger-divider">
-      <span class="num">01</span>
-      <span class="line"></span>
+  <!-- HOME / HERO -->
+  <section id="home" class="hero">
+    <div class="seal-wrap">
+      <div class="seal" id="headerSeal" role="button" tabindex="0" aria-label="ようこそのご挨拶を表示">
+        純
+        <span class="seal-tooltip" id="sealTooltip">ようこそ</span>
+      </div>
     </div>
-    <h2>私について</h2>
-    <p>事務職からエンジニアへ転向中。20年以上、経理・学校事務・医局事務などバックオフィス業務に携わってきました。今はAIと一緒にコードを書きながら、実際に使えるシステムを作っています。</p>
-    <p>「話し言葉で壁打ちしながら、着実に形にする」のが自分のスタイルです。</p>
-    <div class="note">// 現場を知っているからこそ、使う人の手間に気づける</div>
+    <span class="hero-badge">現場目線の業務改善 × AI活用 × システム実装</span>
+    <h1>現場の課題を解き、仕組みに変える。</h1>
+    <p>
+      20年以上のバックオフィス経験による「業務理解」と「AI・Python」を組み合わせ、定型業務の自動化から専用システムの構築まで、実際の業務運用に即した最適な仕組みを実現します。
+    </p>
+    <div class="hero-cta">
+      <a href="#service" class="btn btn-primary">対応可能なアプローチ</a>
+      <a href="#contact" class="btn btn-outline">業務改善のご相談</a>
+    </div>
 
-    <div class="career-ledger">
-      <div class="career-row">
-        <div class="stage">CAREER 01</div>
-        <div class="detail">
-          <h4>経理事務</h4>
-          <p>数字と伝票に向き合う日々。正確さと締切を守ることの大切さを学ぶ。</p>
+    <!-- VALUE PROPOSITION -->
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-step">01. 業務理解</div>
+        <h3>現場のフローを紐解く</h3>
+        <p>20年以上の事務・バックオフィス経験に基づき、現場で何が停滞し、どこに手作業の負担がかかっているかを深く理解・整理します。</p>
+      </div>
+      <div class="value-card">
+        <div class="value-step">02. AI活用</div>
+        <h3>開発・検証の高速化手段</h3>
+        <p>ChatGPT / Claude / Gemini / Copilot等を活用し、要件定義の整理からコード実装・レビュー・テストを迅速かつ高精度に行います。</p>
+      </div>
+      <div class="value-card">
+        <div class="value-step">03. システム化</div>
+        <h3>確実に動く仕組みへ</h3>
+        <p>Python / FastAPI / SQL等を用い、単なるスクリプトにとどまらない、実際の運用に即したシステム・ツールへと落とし込みます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE -->
+  <section id="service">
+    <h2 class="section-title">対応可能なアプローチ領域</h2>
+    <p class="section-subtitle">「技術名」ではなく「どのような課題をどう解決するか」で整理しています</p>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>1. 業務自動化 (Automation)</h3>
+        <p>Excel作業やデータ転記、帳票作成・PDF出力などの定型業務を自動化し、手作業によるミスと作業時間を削減するアプローチです。</p>
+      </div>
+      <div class="service-card">
+        <h3>2. AI活用・業務支援 (AI Integration)</h3>
+        <p>生成AIを活用して社内情報の整理や検索、定型文章の作成支援など、日常のナレッジ活用や思考を整理する仕組みを構築します。</p>
+      </div>
+      <div class="service-card">
+        <h3>3. 業務システム構築 (System Dev)</h3>
+        <p>既存の汎用ツールでは対応しきれない独自の業務管理・予約・データ蓄積に対し、専用のWebシステムを設計・構築します。</p>
+      </div>
+      <div class="service-card">
+        <h3>4. 業務整理・可視化 (Optimization)</h3>
+        <p>「何から手をつけるべきか迷っている」段階から業務の流れを可視化し、「人が行うべき作業」と「システムに任せる作業」を整理します。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <h2 class="section-title">設計・開発事例</h2>
+    <p class="section-subtitle">実務における取り組み、および実業務を想定した設計・検証モデル</p>
+
+    <!-- 1. 実務実績・提供可能領域 -->
+    <div class="works-category">
+      <h3 class="works-category-title">実務自動化・アプローチ実績</h3>
+
+      <div class="work-item">
+        <div class="work-header">
+          <span class="work-tag tag-achievement">開発実績</span>
+          <h3 class="work-title">請求書・帳票データ一括生成・自動化ツール</h3>
+        </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          Excel/VBA・Pythonを用いた一括自動処理ロジックを設計・実装。データ照合から帳票生成・PDF出力までの自動化を想定した業務改善ツール。
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. 構想・コンセプトモデル -->
+    <div class="works-category">
+      <h3 class="works-category-title">フラッグシップ構想（プロダクト設計モデル）</h3>
+
+      <div class="work-item">
+        <div class="work-header">
+          <span class="work-tag tag-concept">システム設計構想</span>
+          <h3 class="work-title">スポーツボウリング場 業務管理・成長支援システム</h3>
+        </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          単なる予約受付にとどまらず、プレイヤー側・店舗運営側の双方の業務フローを解き明かし、会員管理・成長データ蓄積・AI分析までを見据えた包含的なシステム設計事例。
+        </p>
+
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="process-step-title">1. 業務理解</div>
+            <div class="process-step-desc">店舗の運用課題、プレイヤーの成績記録ニーズ、会員管理の手間を網羅的に捉える。</div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-title">2. 要件整理・設計</div>
+            <div class="process-step-desc">利用者/管理者権限の分離、DB設計（SQL）、成長支援データの拡張構造を定義。</div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-title">3. AI協働開発・実装</div>
+            <div class="process-step-desc">FastAPI / Pythonを用い、AIをコードレビュー・設計検証のツールとして活用し迅速に実装。</div>
+          </div>
+          <div class="process-step">
+            <div class="process-step-title">4. レビュー・改善</div>
+            <div class="process-step-desc">実務での操作感を想定し、エラーハンドリングやUIのレスポンスをブラッシュアップ。</div>
+          </div>
         </div>
       </div>
-      <div class="career-row">
-        <div class="stage">CAREER 02</div>
-        <div class="detail">
-          <h4>学校事務・医局事務</h4>
-          <p>異なる立場の人が関わる現場で、書類と手続きを支える仕事に従事。</p>
+    </div>
+
+    <!-- 3. 技術検証・アプリケーション試行 -->
+    <div class="works-category">
+      <h3 class="works-category-title">技術検証・プロトタイプ</h3>
+
+      <div class="work-item">
+        <div class="work-header">
+          <span class="work-tag tag-verification">技術検証アプリ</span>
+          <h3 class="work-title">生成AI連携 Webアプリケーション (AI Tarot)</h3>
         </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          生成AI API（LLM）のプロンプト制御とWebUIを組みあわせ、応答精度を高めるバックエンド設計・API連携の試行。
+        </p>
       </div>
-      <div class="career-row">
-        <div class="stage">CAREER 03</div>
-        <div class="detail">
-          <h4>「これ、自動化できないのかな」</h4>
-          <p>手作業の多さに疑問を持ち始めたのがエンジニアへの転向のきっかけ。</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">私について</h2>
+    <p class="section-subtitle">20年以上のバックオフィス経験 × 技術の活用</p>
+
+    <div class="about-box">
+      <p class="about-text">
+        単にコードを書くことだけが目的ではありません。長年のバックオフィス・事務経験で培った「現場でどこが詰まり、何が不便か」を感じ取る力こそが私の軸です。<br>
+        最新の生成AIをコード検証やプロトタイピングの強力な手段としてフル活用しながら、Python等の技術を用いて「現場が本当に使える仕組み」へ落とし込みます。
+      </p>
+
+      <div class="history-timeline">
+        <div class="history-item">
+          <div class="history-title">バックオフィス・事務職（20年以上）</div>
+          <div class="history-desc">現場の業務フロー改善、Excel/VBAを活用した手作業の効率化を実践。</div>
         </div>
-      </div>
-      <div class="career-row">
-        <div class="stage">CAREER 04</div>
-        <div class="detail">
-          <h4>IT・エンジニアへ転向中</h4>
-          <p>Python / AIツールを使った個人開発を継続しながら、フルリモートで働ける現場を探索中。</p>
+        <div class="history-item">
+          <div class="history-title">業務システム開発・AI協働実践（現在）</div>
+          <div class="history-desc">Python / C# / SQL / Web開発の技術とAI生成ツールを活用し、業務自動化ツール・Webシステムの設計開発から実務運用改善を推進。</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="skills">
-    <div class="ledger-divider">
-      <span class="num">02</span>
-      <span class="line"></span>
-    </div>
-    <h2>できること</h2>
+  <!-- MEDIA & CHANNELS -->
+  <section id="channels">
+    <h2 class="section-title">思考と試行の記録 (MEDIA & OUTLET)</h2>
+    <p class="section-subtitle">システム設計の裏側、AI活用の知見、業務理解のアプローチを発信しています</p>
 
-    <div class="toolshelf">
-      <div class="tool-row">
-        <div class="stack">Python</div>
-        <div class="use">業務の手作業を自動化するツール開発。事務職時代に感じていた「毎回同じ作業」をプログラムに置き換える。</div>
-      </div>
-      <div class="tool-row">
-        <div class="stack">FastAPI / SQLite</div>
-        <div class="use">JWT認証やロール別画面を備えたWebシステムのバックエンド設計・実装。</div>
-      </div>
-      <div class="tool-row">
-        <div class="stack">Streamlit</div>
-        <div class="use">業務ツールを画面つきで素早く形にし、実際に使ってもらえる状態まで持っていく。</div>
-      </div>
-      <div class="tool-row">
-        <div class="stack">Git / GitHub</div>
-        <div class="use">コードの変更管理・公開。ポートフォリオも全てGitHub上で管理。</div>
-      </div>
-      <div class="tool-row">
-        <div class="stack">Claude / ChatGPT / Gemini / Copilot</div>
-        <div class="use">開発パートナーとして併走してもらいながら、壁打ち→要件整理→実装まで進める開発スタイル。</div>
-      </div>
+    <div class="channels-grid">
+      <!-- 後から href に実際のURLを設定可能です (例: <a href="YOUR_URL" target="_blank" rel="noopener noreferrer" class="channel-card">) -->
+      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener noreferrer" class="channel-card">
+        <div class="channel-info">
+          <span class="channel-name">GitHub</span>
+          <span class="channel-desc">ソースコード・設計リポジトリ</span>
+        </div>
+        <span class="channel-status">LINK ↗</span>
+      </a>
+
+      <a href="https://qiita.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener noreferrer" class="channel-card">
+        <div class="channel-info">
+          <span class="channel-name">Qiita</span>
+          <span class="channel-desc">技術ナレッジ・実装ノウハウ</span>
+        </div>
+        <span class="channel-status">LINK ↗</span>
+      </a>
+
+      <a href="https://zenn.dev/junko_jp" target="_blank" rel="noopener noreferrer" class="channel-card">
+        <div class="channel-info">
+          <span class="channel-name">Zenn</span>
+          <span class="channel-desc">開発プロセス・設計思想</span>
+        </div>
+        <span class="channel-status">LINK ↗</span>
+      </a>
+
+      <a href="https://note.com/junko_ai" target="_blank" rel="noopener noreferrer" class="channel-card">
+        <div class="channel-info">
+          <span class="channel-name">note</span>
+          <span class="channel-desc">業務改善・バックオフィス視点</span>
+        </div>
+        <span class="channel-status">LINK ↗</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/%E7%B4%94%E5%AD%90-%E9%AB%99%E6%A9%8B-45683041a/" target="_blank" rel="noopener noreferrer" class="channel-card">
+        <div class="channel-info">
+          <span class="channel-name">LinkedIn</span>
+          <span class="channel-desc">ビジネスネットワーク</span>
+        </div>
+        <span class="channel-status">LINK ↗</span>
+      </a>
     </div>
   </section>
 
-  <section id="projects">
-    <div class="ledger-divider">
-      <span class="num">03</span>
-      <span class="line"></span>
-    </div>
-    <h2>作ったもの</h2>
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">お問い合わせ・ご相談</h2>
+    <p class="section-subtitle">業務改善や自動化、システム化に関するご相談はこちらから承ります</p>
 
-    <div class="project-card">
-      <span class="tag">WEB APP / FastAPI・SQLite・Streamlit</span>
-      <h3>ボウリングレーン予約システム</h3>
-      <div class="beat">
-        <span class="label">課題</span>
-        <p>レーン予約は現場ごとに運用がバラバラで、教室運営から一般利用まで想定した仕組みが必要だった。</p>
-      </div>
-      <div class="beat">
-        <span class="label">解決</span>
-        <p>JWT認証とロール別画面を実装し、利用者ごとに見える範囲・できる操作を分けた予約フローを設計。</p>
-      </div>
-      <div class="beat">
-        <span class="label">技術</span>
-        <p>FastAPI / SQLite / Streamlit / JWT認証</p>
-      </div>
-      <a href="https://github.com/Junko-Takahashi-Cloud/bowling-lane-reservation-system" target="_blank" rel="noopener">GitHubで見る →</a>
+    <div class="contact-container">
+      <form class="contact-form" action="https://formsubmit.co/c5d3baeabe7d414a46a42b9c987d36e2" method="POST">
+        <div class="form-group">
+          <label for="name">お名前 / 貴社名</label>
+          <input type="text" id="name" name="name" required placeholder="例: 山田 太郎">
+        </div>
+        <div class="form-group">
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label for="category">ご相談内容カテゴリ</label>
+          <select id="category" name="category" required>
+            <option value="" selected disabled>選択してください</option>
+            <option>Excel⇄CSV変換ツールについて</option>
+            <option>請求書自動化ツールについて</option>
+            <option>Webシステム開発について</option>
+            <option>AI活用の相談</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">ご相談・お問い合わせ詳細</label>
+          <textarea id="message" name="message" rows="5" required placeholder="「このような手作業を自動化したい」等、現状の課題をお気軽にご記入ください。"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">送信する</button>
+      </form>
     </div>
-
-    <div class="project-card">
-      <span class="tag">TOOL / Python</span>
-      <h3>Excel⇄CSV 変換ツール</h3>
-      <div class="beat">
-        <span class="label">課題</span>
-        <p>事務の現場では、Excel⇄CSVの変換のような定型作業に地道な時間を取られていることが多い。</p>
-      </div>
-      <div class="beat">
-        <span class="label">解決</span>
-        <p>Pythonで初めて作ったツール。そうした手作業の変換をワンステップにまとめた。</p>
-      </div>
-      <div class="beat">
-        <span class="label">技術</span>
-        <p>Python</p>
-      </div>
-      <a href="https://github.com/Junko-Takahashi-Cloud/excel-csv-processor" target="_blank" rel="noopener">GitHubで見る →</a>
-    </div>
-
-    <div class="ai-devlog">
-      <span class="tag">AI × DEVELOPMENT</span>
-      <h4>4AI協働開発記</h4>
-      <p>ボウリングレーン予約システムの開発を、ChatGPT・Copilot・Gemini・Claude、それぞれの視点によるリレー形式で記録した記事です。壁打ちから実装まで、AIと組んで作るスタイルの実際の中身を見てもらえます。</p>
-      <a href="https://qiita.com/Junko-Takahashi-Cloud/items/7eecb9bfcef0efe1ea99" target="_blank" rel="noopener">Qiitaで読む →</a>
-    </div>
-
-    <h3 class="menu-title">品書き — ご相談いただけること</h3>
-    <div class="menu-list">
-      <div class="menu-item">
-        <div class="name">Excel⇄CSV 変換ツール<span>手作業の変換作業をワンステップに</span></div>
-        <div class="price">ご相談ください</div>
-      </div>
-      <div class="menu-item">
-        <div class="name">請求書自動化ツール<span>毎月の請求書作成・出力を自動化</span></div>
-        <div class="price">ご相談ください</div>
-      </div>
-      <div class="menu-item">
-        <div class="name">業務用Webシステム開発<span>予約・管理システムなど、要件から設計・実装まで</span></div>
-        <div class="price">ご相談ください</div>
-      </div>
-    </div>
-    <div class="menu-note">// 料金は内容によって変わるため、まずはお気軽にご相談ください</div>
   </section>
 
-  <section class="contact" id="contact">
-    <div class="ledger-divider">
-      <span class="num">04</span>
-      <span class="line"></span>
-    </div>
-    <h2>お仕事のご相談</h2>
-    <p>「こんな仕組みが欲しい」というお話、まずは気軽にどうぞ。</p>
-
-    <form class="contact-form" action="https://formsubmit.co/c5d3baeabe7d414a46a42b9c987d36e2" method="POST">
-      <div class="field">
-        <label for="name">お名前</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div class="field">
-        <label for="email">メールアドレス</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div class="field">
-        <label for="topic">ご相談内容</label>
-        <select id="topic" name="topic" required>
-          <option value="" selected disabled>選択してください</option>
-          <option>Excel⇄CSV変換ツールについて</option>
-          <option>請求書自動化ツールについて</option>
-          <option>Webシステム開発について</option>
-          <option>AI活用の相談</option>
-          <option>その他</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="message">作って欲しいシステム・お困りごと</label>
-        <textarea id="message" name="message" required></textarea>
-      </div>
-      <button type="submit" class="cta">この内容で送る</button>
-    </form>
-    <p class="contact-fallback">うまく送れない場合は <a href="mailto:kokorohaha1002@gmail.com">kokorohaha1002@gmail.com</a> まで直接ご連絡ください</p>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-links">
-      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://qiita.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">Qiita</a>
-      <a href="https://zenn.dev/junko_jp" target="_blank" rel="noopener">Zenn</a>
-      <a href="https://note.com/junko_ai" target="_blank" rel="noopener">note</a>
-      <a href="https://www.linkedin.com/in/%E7%B4%94%E5%AD%90-%E9%AB%99%E6%A9%8B-45683041a/" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="footer-channels">
+      <!-- 後から href に実際のURLを設定可能です (例: <a href="YOUR_URL" target="_blank" rel="noopener noreferrer">) -->
+      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://qiita.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener noreferrer">Qiita</a>
+      <a href="https://zenn.dev/junko_jp" target="_blank" rel="noopener noreferrer">Zenn</a>
+      <a href="https://note.com/junko_ai" target="_blank" rel="noopener noreferrer">note</a>
+      <a href="https://www.linkedin.com/in/%E7%B4%94%E5%AD%90-%E9%AB%99%E6%A9%8B-45683041a/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
-    <div class="copyright">© 2026 Junko Takahashi</div>
+    <p>&copy; 2026 Junko Takahashi. All Rights Reserved. (業務理解 × AI活用 × システム化)</p>
   </footer>
 
-</div>
+  <!-- JAVASCRIPT -->
+  <script>
+    // はんこスタンプ演出
+    (function () {
+      var seal = document.getElementById('headerSeal');
+      var tooltip = document.getElementById('sealTooltip');
+      var timer = null;
 
-<script>
-  (function(){
-    var seal = document.getElementById('headerSeal');
-    var tooltip = document.getElementById('sealTooltip');
-    var timer = null;
+      function stampSeal() {
+        seal.classList.remove('pressed');
+        void seal.offsetWidth;
+        seal.classList.add('pressed');
+        tooltip.classList.add('visible');
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(function () {
+          tooltip.classList.remove('visible');
+        }, 1800);
+      }
 
-    function stampSeal(){
-      seal.classList.remove('pressed');
-      void seal.offsetWidth;
-      seal.classList.add('pressed');
-      tooltip.classList.add('visible');
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(function(){
-        tooltip.classList.remove('visible');
-      }, 1800);
+      seal.addEventListener('click', stampSeal);
+      seal.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          stampSeal();
+        }
+      });
+    })();
+
+    // ハンバーガーメニュー切り替え
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    if (mobileMenuBtn && navLinks) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
     }
 
-    seal.addEventListener('click', stampSeal);
-    seal.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' '){
+    // スムーススクロール補正＆メニュー閉じ処理
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        stampSeal();
-      }
+        
+        if (navLinks && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+        }
+
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70, // ヘッダー分オフセット
+            behavior: 'smooth'
+          });
+        }
+      });
     });
-  })();
-</script>
+  </script>
+
 </body>
 </html>
