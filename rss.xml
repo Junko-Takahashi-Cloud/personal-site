@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Junko Takahashi - Portfolio &amp; DevLog</title>
+  <link>https://junko-takahashi-cloud.github.io/personal-site/</link>
+  <description>20年の現場・事務職経験とマルチAIチームで挑むシステム設計・開発ログ</description>
+  <language>ja</language>
+  <atom:link href="https://junko-takahashi-cloud.github.io/personal-site/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>ボウリングDX 開発ドキュメンタリー (DevLog)</title>
+    <link>https://junko-takahashi-cloud.github.io/personal-site/devlog.html</link>
+    <guid>https://junko-takahashi-cloud.github.io/personal-site/devlog.html</guid>
+    <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
+    <description>20年の現場・事務職経験を持つ設計者が、マルチAIチーム（Copilot / Claude / ChatGPT / Gemini）と共に挑む「スポーツボウリング場 統合業務管理システム」のアジャイル開発記録。</description>
+  </item>
+
+</channel>
+</rss>
