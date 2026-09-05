@@ -1,353 +1,222 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Devlog | 髙橋純子</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink: #1B2430;
-    --ink-deep: #141B24;
-    --paper: #F5F1E8;
-    --paper-line: #DAD2BE;
-    --text-main: #EDE6D6;
-    --text-sub: #A9AFB9;
-    --seal: #B0472E;
-    --thread: #4FA285;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ボウリングDX 開発ドキュメンタリー (DevLog) | Junko Takahashi</title>
+  <meta name="description" content="20年の現場・事務職経験とマルチAIチームで挑む、スポーツボウリング場 統合業務管理システムの開発ストーリー">
+  <link rel="alternate" type="application/rss+xml" title="Junko Takahashi Blog RSS Feed" href="rss.xml" />
+  <style>
+    :root {
+      --primary: #1e293b;
+      --primary-light: #334155;
+      --accent: #c5a059;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-color: #e2e8f0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  *{box-sizing:border-box; margin:0; padding:0;}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 0;
+      margin: 0;
+    }
 
-  html{scroll-behavior:smooth;}
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
 
-  body{
-    background: var(--ink);
-    color: var(--text-main);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    line-height: 1.9;
-    overflow-x: hidden;
-  }
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
 
-  body::before{
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 47px,
-      rgba(255,255,255,0.035) 47px,
-      rgba(255,255,255,0.035) 48px
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
 
-  .wrap{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 28px;
-    position: relative;
-    z-index: 1;
-  }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
 
-  h1, h2, .display{
-    font-family: 'Zen Old Mincho', serif;
-    letter-spacing: 0.04em;
-  }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--primary-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
 
-  header{
-    padding: 88px 0 32px;
-  }
+    .back-link:hover {
+      color: var(--accent);
+    }
 
-  header h1{
-    font-size: 1.9rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
 
-  header .role{
-    font-size: 0.94rem;
-    color: var(--text-sub);
-    max-width: 56ch;
-  }
+    .tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
 
-  nav.site-nav{
-    padding: 0 0 40px;
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
+    .content h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
 
-  nav.site-nav a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    color: var(--text-sub);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
+    .content h3 {
+      font-size: 1.15rem;
+      color: var(--primary-light);
+      margin: 1.8rem 0 0.8rem;
+    }
 
-  nav.site-nav a:hover,
-  nav.site-nav a:focus-visible{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
+    .content p {
+      margin-bottom: 1.2rem;
+      color: #334155;
+    }
 
-  nav.site-nav a.current{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
+    .content ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+      color: #334155;
+    }
 
-  .ledger-divider{
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 0 0 34px;
-  }
+    .content li {
+      margin-bottom: 0.5rem;
+    }
 
-  .ledger-divider .num{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--thread);
-    border: 1px solid var(--thread);
-    padding: 2px 8px;
-    border-radius: 2px;
-  }
+    blockquote {
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
 
-  .ledger-divider .line{
-    flex: 1;
-    height: 1px;
-    background: rgba(255,255,255,0.14);
-  }
+    .card-summary {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
 
-  section{
-    padding: 56px 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--primary);
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
 
-  section h2{
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-  }
-
-  section > .lede{
-    font-size: 0.94rem;
-    color: var(--text-sub);
-    max-width: 58ch;
-    margin-bottom: 30px;
-  }
-
-  /* ===== ステータスカード ===== */
-  .status-card{
-    background: var(--paper);
-    color: var(--ink);
-    border-radius: 3px;
-    padding: 26px 30px;
-    margin-bottom: 20px;
-    position: relative;
-    box-shadow: 0 10px 22px rgba(0,0,0,0.22);
-  }
-
-  .status-card::before{
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 4px;
-  }
-
-  .status-card.completed::before{ background: var(--thread); }
-  .status-card.next::before{ background: var(--seal); }
-  .status-card.planned::before{ background: var(--paper-line); }
-
-  .status-card .top-row{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-  }
-
-  .status-card .date{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: #8a8065;
-  }
-
-  .status-card .badge{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    padding: 3px 10px;
-    border-radius: 2px;
-  }
-
-  .status-card.completed .badge{ background: rgba(79,162,133,0.16); color: #2f6e56; }
-  .status-card.next .badge{ background: rgba(176,71,46,0.14); color: var(--seal); }
-  .status-card.planned .badge{ background: rgba(74,68,56,0.08); color: #6b6556; }
-
-  .status-card h3{
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 1.14rem;
-    margin-bottom: 10px;
-  }
-
-  .status-card p{
-    font-size: 0.92rem;
-    color: #4A4438;
-    margin-bottom: 8px;
-  }
-
-  .status-card p:last-of-type{
-    margin-bottom: 0;
-  }
-
-  footer{
-    text-align: center;
-    padding: 30px 0 50px;
-  }
-
-  .footer-links{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-bottom: 18px;
-  }
-
-  .footer-links a{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
-    letter-spacing: 0.04em;
-    color: var(--text-sub);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 1px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-
-  .footer-links a:hover{
-    color: var(--thread);
-    border-color: var(--thread);
-  }
-
-  footer .updated{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.22);
-    margin-bottom: 14px;
-  }
-
-  footer .copyright{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.28);
-  }
-
-  @media (max-width: 560px){
-    .status-card .top-row{ flex-direction: column; align-items: flex-start; gap: 6px; }
-  }
-</style>
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrap">
-
   <header>
-    <h1>Development Log</h1>
-    <p class="role">制作記録とこれから — 今まで作ったもの、今取り組んでいること、次にやること</p>
+    <h1>スポーツボウリングDX 開発ドキュメンタリー</h1>
+    <p>業務理解 × AI協調設計で挑む、次世代店舗運営システム構築の記録</p>
   </header>
 
-  <nav class="site-nav">
-    <a href="index.html#about">About</a>
-    <a href="index.html#skills">Skills</a>
-    <a href="index.html#projects">Works</a>
-    <a href="devlog.html" class="current">Devlog</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
+  <div class="container">
+    <a href="index.html" class="back-link">← ポートフォリオトップへ戻る</a>
 
-  <section id="log">
-    <div class="ledger-divider">
-      <span class="num">01</span>
-      <span class="line"></span>
+    <div class="article-meta">
+      <span class="tag">DevLog</span>
+      <span>公開日: 2026年9月5日</span>
+      <span>著者: Junko Takahashi</span>
     </div>
-    <h2>①今まで</h2>
-    <p class="lede">スポーツボウリング場構想を、実際に建設するとしたら何が必要かを考えながら、段階を追ってシステムを作っています。AIと相談しながら、設計→実装→見直しを繰り返しています。</p>
 
-    <div class="status-card completed">
-      <div class="top-row">
-        <span class="date">2026.08</span>
-        <span class="badge">Status: Completed</span>
+    <main class="content">
+      <div class="card-summary">
+        <strong>概要:</strong> 本ドキュメンタリーは、20年の現場・事務職経験を持つ設計者が、マルチAIチーム（Copilot / Claude / ChatGPT / Gemini）と共に挑む「スポーツボウリング場 統合業務管理システム」のアジャイル開発記録です。単なる予約受付にとどまらず、現場の業務負荷軽減とプレイヤーの成長体験を両立するシステム設計の裏側を公開します。
       </div>
-      <h3>第二弾 — 予約システムの発展</h3>
-      <p>初心者教室・クラウドファンディング特典などの機能を追加。第一弾の基本予約機能から、実際のボウリング場運営を想定した形へ拡張しました。</p>
-    </div>
 
-    <div class="status-card completed">
-      <div class="top-row">
-        <span class="date">2026.06</span>
-        <span class="badge">Status: Completed</span>
-      </div>
-      <h3>第一弾 — ボウリングレーン予約システム</h3>
-      <p>JWT認証・ロール別画面を備えたレーン予約Webアプリ。構想全体の土台となる予約機能を実装しました。</p>
-    </div>
-  </section>
+      <h2>第1章：原点と課題感 — なぜスポーツボウリングなのか</h2>
+      <p>
+        ボウリングは一見シンプルなレジャーに見えますが、競技スポーツとしての面やマイボウラー（会員）文化、そして複雑なレーンメンテナンスや大会運用など、高度な現場業務の上に成り立っています。
+      </p>
+      <p>
+        私自身が長年抱いてきたボウリングへの想いと、20年間にわたり現場の事務・業務フロー改善に向き合ってきた経験から、「アナログな紙管理や分断されたシステムが現場スタッフの負荷を高めている」という課題に着目しました。
+      </p>
 
-  <section id="now">
-    <div class="ledger-divider">
-      <span class="num">02</span>
-      <span class="line"></span>
-    </div>
-    <h2>②今</h2>
+      <h2>第2章：業務フローの解像度を極める</h2>
+      <p>
+        システム開発において最も重要なのは、現場の言葉とデータ構造の架け橋となることです。本プロジェクトでは以下の業務プロセスを完全に言語化・構造化しました：
+      </p>
+      <ul>
+        <li><strong>大会・リーグ運用業務:</strong> 複雑なハンデ計算、レーン移動パターン、対戦スコア自動集計</li>
+        <li><strong>会員成長データの管理:</strong> 投球データのログ蓄積とスコア傾向分析</li>
+        <li><strong>設備・レーンメンテナンス調書:</strong> オイルパターンとメンテナンス周期のデジタルトラッキング</li>
+      </ul>
 
-    <div class="status-card next">
-      <div class="top-row">
-        <span class="date">NEXT</span>
-        <span class="badge">Status: Next</span>
-      </div>
-      <h3>第三弾 — 店舗・スタッフ管理システム</h3>
-      <p>利用者が予約したあと、店舗側では何を管理するのかを考える段階。スタッフログイン、当日予約一覧、来店受付、レーン稼働状況、教室運営、売上・利用履歴など、運営者目線でシステムを設計していきます。</p>
-    </div>
-  </section>
+      <h2>第3章：マルチAIチームとの協調設計プロセス</h2>
+      <p>
+        本構想の設計プロセスにおいては、人間（ドメイン知識と業務理解）と複数のAI（Microsoft Copilot, Claude, ChatGPT, Gemini等）が役割分担を行う「マルチAI体制」を採用しています。
+      </p>
+      <blockquote>
+        「業務の文脈を理解するのは人間であり、それを迅速にコードや構造に昇華するのがAIの役割である」
+      </blockquote>
+      <p>
+        このアプローチにより、机上の理論にとどまらない「現場で本当に使われるシステム仕様」の策定を極めてスピーディに進行することが可能となりました。
+      </p>
 
-  <section id="future">
-    <div class="ledger-divider">
-      <span class="num">03</span>
-      <span class="line"></span>
-    </div>
-    <h2>③これから</h2>
+      <h2>今後の展望（第4章以降の連載予定）</h2>
+      <p>
+        今後はデータベース設計、UI/UXプロトタイピング、そして会員向けスコア分析ツールの実装プロセスについて順次連載・公開していきます。
+      </p>
+    </main>
 
-    <div class="status-card planned">
-      <div class="top-row">
-        <span class="date">FUTURE</span>
-        <span class="badge">Status: Planned</span>
-      </div>
-      <h3>第四弾 — 会員・成長支援システム</h3>
-      <p>会員カルテ、投球記録、成長記録など、「予約する」から「続けて成長する」ための仕組みへ。それぞれの目標に合わせて成長できる場を目指します。</p>
+    <div style="margin-top: 3rem; text-align: center;">
+      <a href="index.html" class="back-link">← トップページでプロフィール・その他実績を見る</a>
     </div>
-  </section>
+  </div>
 
   <footer>
-    <div class="updated">最終更新：2026.08</div>
-    <div class="footer-links">
-      <a href="https://github.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://qiita.com/Junko-Takahashi-Cloud" target="_blank" rel="noopener">Qiita</a>
-      <a href="https://zenn.dev/junko_jp" target="_blank" rel="noopener">Zenn</a>
-      <a href="https://note.com/junko_ai" target="_blank" rel="noopener">note</a>
-      <a href="https://www.linkedin.com/in/%E7%B4%94%E5%AD%90-%E9%AB%99%E6%A9%8B-45683041a/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <div class="copyright">© 2026 Junko Takahashi</div>
+    <p>&copy; 2026 Junko Takahashi. All rights reserved.</p>
   </footer>
-
-</div>
 
 </body>
 </html>
