@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約システムの発展 (DevLog #02) | Junko Takahashi</title>
+  <meta name="description" content="第一弾リリース後、団体予約・教室運営・レーンの柔軟活用まで踏み込んだ「第二弾:予約システムの発展」の開発記録">
+  <link rel="alternate" type="application/rss+xml" title="Junko Takahashi Blog RSS Feed" href="rss.xml" />
+  <style>
+  :root {
+  --primary: #1E3A8A;
+  --primary-light: #3B82F6;
+  --accent: #c5a059;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #e2e8f0;
+  }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--primary-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .content h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .content h3 {
+      font-size: 1.15rem;
+      color: var(--primary-light);
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .content p {
+      margin-bottom: 1.2rem;
+      color: #334155;
+    }
+
+    .content ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+      color: #334155;
+    }
+
+    .content li {
+      margin-bottom: 0.5rem;
+    }
+
+    blockquote {
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .card-summary {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--primary);
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>スポーツボウリングDX 開発ドキュメンタリー</h1>
+    <p>業務理解 × AI協調設計で挑む、次世代店舗運営システム構築の記録</p>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="back-link">← ポートフォリオトップへ戻る</a>
+
+    <div class="article-meta">
+      <span class="tag">DevLog #02</span>
+      <span>公開日: 2026年9月12日</span>
+      <span>著者: Junko Takahashi</span>
+    </div>
+
+    <main class="content">
+      <div class="card-summary">
+        <strong>概要:</strong> 第一弾(V1)のレーン予約システムをリリースした後、「これで本当に運用できるのか」を見つめ直す中で見えてきた課題に取り組んだのが、この第二弾です。団体予約のあり方、初心者教室の継続予約、そしてレーンという限られた資源をどう柔軟に使うか——第一弾では踏み込めなかった現場の運用に一歩踏み込んだ開発記録です。
+      </div>
+
+      <h2>第1章：見えてきた次の課題</h2>
+      <p>
+        第一弾では「個人が1レーンを予約する」というシンプルな流れを実装しました。しかし実際の施設運用を想像すると、それだけでは足りない場面がいくつも出てきます。職場の同僚同士や仲良しグループでまとめて申し込みたいケース、初心者教室のように「毎週同じ時間に通い続ける」タイプの予約、そして教室が入っていない時間帯にレーンを遊ばせておくのはもったいない、という運営側の視点です。第二弾は、この3つに向き合うところから始まりました。
+      </p>
+
+      <h2>第2章：団体予約は「代表者氏名」だけでいい</h2>
+      <p>
+        団体予約の機能を考えたとき、最初に迷ったのは「団体名」という項目を持たせるかどうかでした。ですが、この施設を利用するのは会社の部署単位とは限りません。友人グループ、家族、サークル仲間など、正式な団体名を持たない集まりの方がむしろ多いはずです。
+      </p>
+      <p>
+        そこで、団体予約には団体名の項目を設けず、<strong>「代表者氏名」のみ</strong>で管理する設計にしました。誰が申し込んだかさえ分かれば運用は成立しますし、「団体名を考えないといけない」という利用者側の余計なハードルもなくなります。
+      </p>
+
+      <h2>第3章：初心者教室は「初回だけ選んで、あとは自動で続く」</h2>
+      <p>
+        初心者教室は全5回の連続講座として運営しています。ここで重要にしたのは、5回分の日程を利用者に毎回選ばせないことです。<strong>初回の日時だけ指定してもらえば、2回目以降は同じ曜日・時間で自動的に予約が継続する</strong>仕組みにしました。
+      </p>
+      <p>
+        「今週の都合を毎回確認して予約し直す」という手間をなくすことで、利用者は一度申し込むだけで良く、運営側もキャンセル忘れや無断欠席のリスクを減らせます。継続することを前提にした教室だからこそ、予約の仕組みも「続けやすさ」を軸に設計しました。
+      </p>
+
+      <h2>第4章：教室が休みの時間、レーンを遊ばせない</h2>
+      <p>
+        施設全体は4レーン構想で、うち2レーンを初心者教室用として確保しています。ただ、教室が開催されていない時間帯までレーンを空けておくのは非効率です。そこで、<strong>教室が入っていない時間帯は、その2レーンを競技者用として一時的に開放する</strong>運用を組み込みました。
+      </p>
+      <p>
+        「教室用」「競技者用」を固定的に分けるのではなく、時間帯によって役割を切り替えられる柔軟なレーン管理にすることで、限られた4レーンという資源を無駄なく使い切ることを目指しています。
+      </p>
+
+      <h2>第5章：開発体制の変化 — 4AIリレーから、Claudeとの壁打ちへ</h2>
+      <p>
+        第一弾(V1)は、ChatGPT(要件定義)・Copilot(設計・アーキテクチャ)・Gemini(DB設計レビュー)・Claude(設計レビュー・品質チェック)という4AIリレー体制を計画していました。しかし実際には、Copilotが担当する予定だった実装部分まで含め、最終的にClaudeが実装からデバッグまで一貫して担当することになりました。
+      </p>
+      <p>
+        この経験を踏まえ、第二弾ではあえて体制を変え、<strong>Claudeとの壁打ちのみ</strong>で設計から実装まで進めました。複数のAIを行き来する分業体制よりも、1つのAIと文脈を積み重ねながら会話ベースで詰めていく方が、団体予約や教室の継続予約のような「細かい業務ルールのすり合わせ」には向いている、という手応えを得た開発でした。
+      </p>
+
+      <h2>今後の展望</h2>
+      <p>
+        次回(#03)は、店舗・スタッフ管理システム(第三弾)の開発記録をお届けします。受付やレーン状況の把握、決済確認など、運営側の目線に立った仕組みづくりの裏側を公開していく予定です。
+      </p>
+    </main>
+
+    <div class="nav-links">
+      <a href="devlog.html" class="back-link">← 前回(#01)を読む</a>
+      <a href="index.html" class="back-link">トップページへ戻る →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Junko Takahashi. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
