@@ -14,6 +14,13 @@
     <pubDate>Sat, 05 Sep 2026 00:00:00 GMT</pubDate>
     <description>20年の現場・事務職経験を持つ設計者が、マルチAIチーム（Copilot / Claude / ChatGPT / Gemini）と共に挑む「スポーツボウリング場 統合業務管理システム」のアジャイル開発記録。</description>
   </item>
-
+  <item>
+    <title>予約システムの発展 (DevLog #02)</title>
+    <link>https://junko-takahashi-cloud.github.io/personal-site/devlog-02.html</link>
+    <guid>https://junko-takahashi-cloud.github.io/personal-site/devlog-02.html</guid>
+    <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
+    <description>第一弾リリース後に見えてきた課題(団体予約・教室の継続予約・レーンの柔軟活用)に取り組んだ、第二弾「予約システムの発展」の開発記録。</description>
+  </item>
+  
 </channel>
 </rss>
