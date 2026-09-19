@@ -1,89 +1,275 @@
-<article class="devlog-entry">
-  <header class="devlog-entry-header">
-    <span class="devlog-number">#03</span>
-    <h2 class="devlog-title">拡張機能編 &amp; フロントエンド着手</h2>
-    <time class="devlog-date" datetime="2026-09-19">2026-09-19</time>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevLog #03 第三弾:店舗・スタッフ管理システム開発ストーリー | Junko Takahashi</title>
+  <meta name="description" content="20年の現場・事務職経験とマルチAIチームで挑む、スポーツボウリング場 統合業務管理システムの開発ストーリー — 第三弾:店舗・スタッフ管理システム編">
+  <link rel="alternate" type="application/rss+xml" title="Junko Takahashi Blog RSS Feed" href="rss.xml" />
+  <style>
+  :root {
+  --primary: #1E3A8A;
+  --primary-light: #3B82F6;
+  --accent: #c5a059;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #e2e8f0;
+  }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--primary-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .content h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .content h3 {
+      font-size: 1.15rem;
+      color: var(--primary-light);
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .content p {
+      margin-bottom: 1.2rem;
+      color: #334155;
+    }
+
+    .content ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+      color: #334155;
+    }
+
+    .content li {
+      margin-bottom: 0.5rem;
+    }
+
+    blockquote {
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .card-summary {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .roadmap-list {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem 1.5rem 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .roadmap-item {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      align-items: baseline;
+    }
+
+    .roadmap-item .phase {
+      font-weight: 700;
+      color: var(--accent);
+      white-space: nowrap;
+      font-size: 0.85rem;
+    }
+
+    .roadmap-item p {
+      margin-bottom: 0;
+      font-size: 0.92rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--primary);
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>スポーツボウリングDX 開発ドキュメンタリー</h1>
+    <p>業務理解 × AI協調設計で挑む、次世代店舗運営システム構築の記録</p>
   </header>
 
-  <section class="devlog-section">
-    <h3>第三弾の概要</h3>
-    <p>
-      第三弾は「店舗・スタッフ管理システム」。スタッフ側の運用を支えるバックエンドとして、
-      Phase単位で機能を積み上げました。
-    </p>
-    <ul>
-      <li><strong>Phase 3-1(MVP)</strong>：スタッフログイン(4桁PIN)、当日予約×4レーンのダッシュボード、
-        来店受付のチェックイン/アウト、レーン稼働状況の管理(故障即時ブロック)、
-        教室出席管理(グループ単位)、決済確認</li>
-      <li><strong>Phase 3-2</strong>：レーンアサイン変更、キャンセル対応、修了生フラグ、売上管理</li>
-      <li><strong>Phase 3-3</strong>：メンテナンス管理</li>
-    </ul>
-    <p>
-      料金体系はゲーム数ではなく時間単位課金。教室は全5回のカリキュラム
-      (基本投球→ストライク→スペア→復習→卒業記録会)で、当日開放ロジックのような複雑な自動化は
-      最終的に見送り、「締切ベースの自動開放」+スタッフの手動運用でシンプルに保つ方針に
-      落ち着きました。バックエンドはここまでで完成し、残タスクはフロントエンドのみという状態でした。
-    </p>
-  </section>
+  <div class="container">
+    <a href="devlog.html" class="back-link">← DevLog一覧へ戻る</a>
 
-  <section class="devlog-section">
-    <h3>拡張機能①②③④の流れ</h3>
-    <p>第三弾には4つの拡張機能があり、優先順位は <strong>④→③→②→①</strong> の順で進めました。</p>
-    <ul>
-      <li>
-        <strong>④ 個人カルテ×グループ出欠管理</strong>：第三弾(グループ出欠)と第四弾(会員個人データ)は
-        別アプリ・別DBなので自動連携せず、「教室を修了して一般ボウラーになった」という事実だけを持つ
-        <code>ClassCompletionRecord</code> に最小化して実装
-      </li>
-      <li>
-        <strong>③ レーンアサイン自動化×達成バッジ・称号</strong>：会員側の <code>AchievementBadge</code> を実装。
-        店舗側の自動化は結局「締切ベース自動開放」に統合する形に整理し、同時チェックイン時の排他制御も
-        「小規模運用ならスタッフの目視判断で十分」という結論で見送り
-      </li>
-      <li>
-        <strong>② コーチシフト管理</strong>：<code>Instructor</code> モデルを新設し、
-        教室のコース/回への担当インストラクター割当として実装
-      </li>
-      <li>
-        <strong>① 店舗側メンテナンス管理×会員側オイル抜きリマインド</strong>：唯一、既存スタックと分けて
-        <strong>FastAPI + PostgreSQL + Docker + AWS</strong> という新スタックで学習目的からゼロ構築。
-        EC2デプロイまで完走し、第三弾・第四弾との双方向API連携(故障検知→自動登録、整備完了→会員のマイギア履歴反映)も
-        実機確認済みで完了
-      </li>
-    </ul>
-    <p>
-      4項目とも、途中でセッション切れによるコード消失や既存バグの発見など紆余曲折はありましたが、
-      GitHubへの反映まで完了しています。
-    </p>
-  </section>
+    <div class="article-meta">
+      <span class="tag">DevLog #03</span>
+      <span>公開日: 2026年9月19日</span>
+      <span>著者: Junko Takahashi</span>
+    </div>
 
-  <section class="devlog-section">
-    <h3>今日のフロントエンド着手〜4画面完成</h3>
-    <p>
-      第三弾はここまでバックエンド中心だったため、今日はいよいよ第三弾のReactフロントエンドに着手しました。
-    </p>
-    <ul>
-      <li>フォルダは <code>bowling-lane-management-frontend</code>(バックエンドとは別リポジトリ)</li>
-      <li>Vite + React + ESLint、axios・recharts・react-router-domを導入</li>
-      <li>
-        実装順序は <strong>スタッフログイン(4桁PIN)→ホーム画面(ボタン式メニュー)→当日予約ダッシュボード→
-        来店受付→教室出席管理</strong> の5画面構成のうち、4画面を実装完了(すべてダミーデータで動作確認済み)
-      </li>
-      <li>
-        予約ダッシュボードの各予約項目に「受付へ」ボタンを追加し、URLパラメータ(lane・name)で
-        来店受付画面に値を渡す連携も実装済み
-      </li>
-    </ul>
-    <p>半日でここまで進んだのは、拡張①・第五弾で積んできたReact構築の経験が効いた形です。</p>
-  </section>
+    <main class="content">
+      <div class="card-summary">
+        <strong>概要:</strong> 第三弾「店舗・スタッフ管理システム」は、受付・レーン状況・決済確認など、現場のスタッフが日々触る業務を支えるバックエンドです。20年の事務職経験で培った「現場が実際に困ること」への解像度を軸に、テーブル設計から料金体系、教室運営の仕組みまでを組み立てました。今回は、その設計と開発の裏側、そしてマルチAI体制で得た学びを公開します。
+      </div>
 
-  <section class="devlog-section devlog-next">
-    <h3>次回予告</h3>
-    <p>残っているのは以下の2つです。</p>
-    <ul>
-      <li>残り画面(レーン状況/売上・利用履歴/コーチシフト管理)の実装</li>
-      <li>本物のバックエンドAPIとの接続(CORS設定など)</li>
-    </ul>
-    <p>次回はこの2つに着手し、ダミーデータ版から実データ版への切り替えまで進める予定です。</p>
-  </section>
-</article>
+      <h2>第1章：スタッフが本当に使う画面から逆算する</h2>
+      <p>
+        第三弾の出発点は「予約が入ったその先」でした。第一弾・第二弾で会員がレーンや教室を予約できるようになった一方で、実際にお店を開けて回すスタッフ側の業務——受付、レーンの稼働状況、決済確認、教室の出欠——は手つかずのままでした。
+      </p>
+      <p>
+        MVP(Phase 3-1)としてまず組み込んだのは、次の6つです。
+      </p>
+      <ul>
+        <li>スタッフログイン(4桁PIN、階層なしのシンプル認証)</li>
+        <li>当日予約×4レーンのダッシュボード</li>
+        <li>来店受付のチェックイン・チェックアウト</li>
+        <li>レーン稼働状況の管理(故障発生時は即時ブロック)</li>
+        <li>教室出席管理(個人単位ではなくグループ単位で追跡)</li>
+        <li>決済確認</li>
+      </ul>
+      <p>
+        その後Phase 3-2でレーンアサイン変更・キャンセル対応・修了生フラグ・売上管理を、Phase 3-3でメンテナンス管理を追加し、店舗運営の一通りの流れをカバーする形に育てていきました。
+      </p>
+
+      <h2>第2章：料金は「ゲーム数」ではなく「時間」で区切る</h2>
+      <p>
+        料金体系を設計する段階で、最初に決めたのは「ゲーム数課金にしない」ということでした。1ゲームごとの課金は、練習に来る人にとってはプレッシャーになりやすく、「スポーツとして気軽に続けられる場所」という施設コンセプトとずれてしまいます。
+      </p>
+      <p>
+        そこで採用したのが時間単位課金です。レーンが片方故障していても割引はせず、サークル利用時も人数割りではなく1人1時間の単価で固定しました。シンプルなルールにすることで、スタッフ側の会計処理も、利用者側の予測も立てやすくなります。
+      </p>
+      <p>
+        教室運営についても、全5回のカリキュラム(基本投球→ストライク→スペア→復習→卒業記録会)として設計し、支払いは教室のみ先払い、それ以外は後払いという形に整理しました。
+      </p>
+
+      <h2>第3章：無断キャンセル対策と、テーブル設計の裏側</h2>
+      <p>
+        現場の事務経験から特にこだわったのが、無断キャンセル(no-show)の扱いです。<code>no_show_record</code>テーブルでは、メールアドレス単位で無断キャンセルと直前キャンセル(late cancel)を同じ重みで記録し、2ヶ月のローリング期間で3回に達すると次回予約を制限する設計にしました。マナー違反を厳しく罰するのではなく、「継続的に困る行動」だけを緩やかに抑止する仕組みです。
+      </p>
+      <p>
+        その他の主要テーブルも、現場でありがちなつまずきを想定して設計しています。<code>lane</code>テーブルではレーン番号を固定しつつペア番号とステータスを独立管理し、<code>checkin</code>テーブルではシューズレンタルとボールレンタルを別々に記録できるようにしました(体験利用枠にも対応)。
+      </p>
+
+      <h2>第4章：マルチAI体制での「役割の再設計」</h2>
+      <p>
+        第三弾の開発は、Claudeが全体設計・DB設計・バックエンドの骨格を担当し、Copilotが実装補助、Geminiが設計レビュー、ChatGPT(チャッピ)が4AIの意見統合・要件整理・README作成という体制で進めました。
+      </p>
+      <p>
+        ただ、この体制は最初からうまく回ったわけではありません。開発の途中、Claudeのレート制限がかかっている間にCopilotが第一弾・第二弾側の機能まで作り込んでしまう、という「Copilotの暴走」が起きました。
+      </p>
+      <blockquote>
+        AIに何をどこまで任せるかは、事前に決めたつもりでも、実際に手を動かしてみないと見えてこない境界線がある。
+      </blockquote>
+      <p>
+        この経験から、Copilotの役割を「補助役」に格下げし、仕様解釈や実装ロジックの判断には関わらせない方針に切り替えました。複数のAIと協働する上で、能力の高さだけでなく「どこまでの裁量を渡すか」を都度見直すことの大切さを学んだ章でもあります。
+      </p>
+
+      <h2>今後の展望</h2>
+      <p>
+        第三弾のバックエンドはこの後、4つの拡張機能(個人カルテ×出欠管理、レーンアサイン自動化×達成バッジ、コーチシフト管理、メンテナンス管理×オイル抜きリマインド)へと発展していきます。開発は思っていた以上にボリュームが出たため、この連載では今後も「1つの弾=1記事」にこだわらず、内容に応じて章立てを分けながら公開していく予定です。
+      </p>
+      <p>
+        次回(<a href="devlog-04.html">#04</a>)は、第三弾の拡張機能編をお届けします。
+      </p>
+    </main>
+
+    <div style="margin-top: 3rem; text-align: center;">
+      <a href="index.html" class="back-link">← トップページでプロフィール・その他実績を見る</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Junko Takahashi. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
