@@ -1,0 +1,89 @@
+<article class="devlog-entry">
+  <header class="devlog-entry-header">
+    <span class="devlog-number">#03</span>
+    <h2 class="devlog-title">拡張機能編 &amp; フロントエンド着手</h2>
+    <time class="devlog-date" datetime="2026-09-19">2026-09-19</time>
+  </header>
+
+  <section class="devlog-section">
+    <h3>第三弾の概要</h3>
+    <p>
+      第三弾は「店舗・スタッフ管理システム」。スタッフ側の運用を支えるバックエンドとして、
+      Phase単位で機能を積み上げました。
+    </p>
+    <ul>
+      <li><strong>Phase 3-1(MVP)</strong>：スタッフログイン(4桁PIN)、当日予約×4レーンのダッシュボード、
+        来店受付のチェックイン/アウト、レーン稼働状況の管理(故障即時ブロック)、
+        教室出席管理(グループ単位)、決済確認</li>
+      <li><strong>Phase 3-2</strong>：レーンアサイン変更、キャンセル対応、修了生フラグ、売上管理</li>
+      <li><strong>Phase 3-3</strong>：メンテナンス管理</li>
+    </ul>
+    <p>
+      料金体系はゲーム数ではなく時間単位課金。教室は全5回のカリキュラム
+      (基本投球→ストライク→スペア→復習→卒業記録会)で、当日開放ロジックのような複雑な自動化は
+      最終的に見送り、「締切ベースの自動開放」+スタッフの手動運用でシンプルに保つ方針に
+      落ち着きました。バックエンドはここまでで完成し、残タスクはフロントエンドのみという状態でした。
+    </p>
+  </section>
+
+  <section class="devlog-section">
+    <h3>拡張機能①②③④の流れ</h3>
+    <p>第三弾には4つの拡張機能があり、優先順位は <strong>④→③→②→①</strong> の順で進めました。</p>
+    <ul>
+      <li>
+        <strong>④ 個人カルテ×グループ出欠管理</strong>：第三弾(グループ出欠)と第四弾(会員個人データ)は
+        別アプリ・別DBなので自動連携せず、「教室を修了して一般ボウラーになった」という事実だけを持つ
+        <code>ClassCompletionRecord</code> に最小化して実装
+      </li>
+      <li>
+        <strong>③ レーンアサイン自動化×達成バッジ・称号</strong>：会員側の <code>AchievementBadge</code> を実装。
+        店舗側の自動化は結局「締切ベース自動開放」に統合する形に整理し、同時チェックイン時の排他制御も
+        「小規模運用ならスタッフの目視判断で十分」という結論で見送り
+      </li>
+      <li>
+        <strong>② コーチシフト管理</strong>：<code>Instructor</code> モデルを新設し、
+        教室のコース/回への担当インストラクター割当として実装
+      </li>
+      <li>
+        <strong>① 店舗側メンテナンス管理×会員側オイル抜きリマインド</strong>：唯一、既存スタックと分けて
+        <strong>FastAPI + PostgreSQL + Docker + AWS</strong> という新スタックで学習目的からゼロ構築。
+        EC2デプロイまで完走し、第三弾・第四弾との双方向API連携(故障検知→自動登録、整備完了→会員のマイギア履歴反映)も
+        実機確認済みで完了
+      </li>
+    </ul>
+    <p>
+      4項目とも、途中でセッション切れによるコード消失や既存バグの発見など紆余曲折はありましたが、
+      GitHubへの反映まで完了しています。
+    </p>
+  </section>
+
+  <section class="devlog-section">
+    <h3>今日のフロントエンド着手〜4画面完成</h3>
+    <p>
+      第三弾はここまでバックエンド中心だったため、今日はいよいよ第三弾のReactフロントエンドに着手しました。
+    </p>
+    <ul>
+      <li>フォルダは <code>bowling-lane-management-frontend</code>(バックエンドとは別リポジトリ)</li>
+      <li>Vite + React + ESLint、axios・recharts・react-router-domを導入</li>
+      <li>
+        実装順序は <strong>スタッフログイン(4桁PIN)→ホーム画面(ボタン式メニュー)→当日予約ダッシュボード→
+        来店受付→教室出席管理</strong> の5画面構成のうち、4画面を実装完了(すべてダミーデータで動作確認済み)
+      </li>
+      <li>
+        予約ダッシュボードの各予約項目に「受付へ」ボタンを追加し、URLパラメータ(lane・name)で
+        来店受付画面に値を渡す連携も実装済み
+      </li>
+    </ul>
+    <p>半日でここまで進んだのは、拡張①・第五弾で積んできたReact構築の経験が効いた形です。</p>
+  </section>
+
+  <section class="devlog-section devlog-next">
+    <h3>次回予告</h3>
+    <p>残っているのは以下の2つです。</p>
+    <ul>
+      <li>残り画面(レーン状況/売上・利用履歴/コーチシフト管理)の実装</li>
+      <li>本物のバックエンドAPIとの接続(CORS設定など)</li>
+    </ul>
+    <p>次回はこの2つに着手し、ダミーデータ版から実データ版への切り替えまで進める予定です。</p>
+  </section>
+</article>
