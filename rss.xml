@@ -28,6 +28,13 @@
     <pubDate>Sat, 19 Sep 2026 00:00:00 GMT</pubDate>
     <description>受付・レーン状況・決済確認など運営側目線の仕組みづくりに取り組んだ、第三弾「店舗・スタッフ管理システム」の開発ストーリー。マルチAI体制での学びも公開。</description>
   </item>
+  <item>
+    <title>第三弾拡張機能編:「予定通り」にはならなかった話 (DevLog #04)</title>
+    <link>https://junko-takahashi-cloud.github.io/personal-site/devlog-04.html</link>
+    <guid>https://junko-takahashi-cloud.github.io/personal-site/devlog-04.html</guid>
+    <pubDate>Sat, 26 Sep 2026 00:00:00 GMT</pubDate>
+    <description>個人カルテ・レーンアサイン自動化・コーチシフト・メンテナンス管理という4つの拡張機能に着手し、計画と現実のズレに向き合った第三弾拡張機能編の開発記録。</description>
+  </item>
 
 </channel>
 </rss>
