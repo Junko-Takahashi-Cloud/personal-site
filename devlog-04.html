@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第三弾拡張機能編:「予定通り」にはならなかった話 (DevLog #04) | Junko Takahashi</title>
+  <meta name="description" content="20年の現場・事務職経験とマルチAIチームで挑む、スポーツボウリング場 統合業務管理システムの開発ストーリー — 第三弾拡張機能編:計画と現実のズレから学んだこと">
+  <link rel="alternate" type="application/rss+xml" title="Junko Takahashi Blog RSS Feed" href="rss.xml" />
+  <style>
+  :root {
+  --primary: #1E3A8A;
+  --primary-light: #3B82F6;
+  --accent: #c5a059;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: #e2e8f0;
+  }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.8;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--primary-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
+    }
+
+    .tag {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .content h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .content h3 {
+      font-size: 1.15rem;
+      color: var(--primary-light);
+      margin: 1.8rem 0 0.8rem;
+    }
+
+    .content p {
+      margin-bottom: 1.2rem;
+      color: #334155;
+    }
+
+    .content ul {
+      margin: 1rem 0 1.5rem 1.5rem;
+      color: #334155;
+    }
+
+    .content li {
+      margin-bottom: 0.5rem;
+    }
+
+    blockquote {
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .card-summary {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: var(--primary);
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>スポーツボウリングDX 開発ドキュメンタリー</h1>
+    <p>業務理解 × AI協調設計で挑む、次世代店舗運営システム構築の記録</p>
+  </header>
+
+  <div class="container">
+    <a href="index.html" class="back-link">← ポートフォリオトップへ戻る</a>
+
+    <div class="article-meta">
+      <span class="tag">DevLog #04</span>
+      <span>公開日: 2026年9月26日</span>
+      <span>著者: Junko Takahashi</span>
+    </div>
+
+    <main class="content">
+      <div class="card-summary">
+        <strong>概要:</strong> 前回予告した4つの拡張機能(個人カルテ×出欠管理、レーンアサイン自動化×達成バッジ、コーチシフト管理、メンテナンス管理×オイル抜きリマインド)に着手してみると、実際に手を動かす中で見えてきた現実は、当初の計画とはかなり違うものでした。今回は「予定通りにはならなかった」その中身を、ごまかさずに公開します。
+      </div>
+
+      <h2>第1章:個人カルテ×出欠管理 — 新規実装をやめた話</h2>
+      <p>
+        最初の想定では、専用の「個人カルテ」機能を新しく作るつもりでした。しかし実装の前段階で見直したところ、第三弾側のグループ単位出欠管理と、第四弾側の教室修了記録(ClassCompletionRecord)を組み合わせれば、実質的に目的を果たせることに気づきました。
+      </p>
+      <p>
+        個人ごとの細かい指導記録までは追わない、という当初からの運用方針ともここは合っていました。「新しく作る」のではなく「すでにある仕組みで足りている」という結論です。
+      </p>
+
+      <h2>第2章:レーンアサイン自動化×達成バッジ — 作ってから消した話</h2>
+      <p>
+        達成バッジ・称号(AchievementBadge)は第四弾側に実装済みです。会員が実績に応じてバッジを獲得できる仕組みは、モチベーション維持の意味でも気に入っています。
+      </p>
+      <p>
+        一方でレーンアサイン自動化(チェックイン時にレーンを自動で割り振る機能)は、一度実装まで済ませたあとに削除しました。理由はシンプルで、4レーン運用ならスタッフが目視で割り振ったほうが早くて確実だったからです。
+      </p>
+      <p>
+        作ってから消すのは少しもったいない気もしましたが、機能を増やすことより、実際の店舗運用に近い判断ができたことのほうが、今回は収穫だったと思っています。
+      </p>
+
+      <h2>第3章:コーチシフト管理 — 記録の食い違いに気づいた話</h2>
+      <p>
+        コーチシフト管理は当初、第四弾(会員側)に実装するつもりでいました。ところがコードを見直したところ、すでに第三弾(店舗側)に実装されていたことが判明しました。記録が食い違っていた形です。
+      </p>
+      <p>
+        会員側に指導メモや進捗を持たせる案も一度は検討しましたが、「会員に見せる情報ではない」という運用方針と矛盾するため、店舗側だけに絞ってそのまま確定させました。
+      </p>
+
+      <h2>第4章:メンテナンス管理×オイル抜きリマインド — 一番大きな見落とし</h2>
+      <p>
+        会員側の「オイル抜きリマインド」自体は、第四弾のGear機能の一部としてすでに実装済みでした。ところが、それを支えるはずの店舗側の本格的なメンテナンス管理(貸出用品の状態管理、整備記録、業者情報など)が、実は手つかずのまま残っていたことに気づきました。
+      </p>
+      <p>
+        ここは軽く直すのではなく、新しく別リポジトリ(拡張①)として、これまで使っていなかった技術スタック——FastAPI・PostgreSQL・Docker・AWS——で一から作り直すことにしました。Dockerも AWSも未経験からのスタートで、ローカルでのDocker Compose構築、SQLAlchemy+Alembicでのテーブル設計、EC2への初めてのデプロイと、正直つまずいてばかりでしたが、最終的には本番環境で稼働するところまで持っていけました。
+      </p>
+      <p>
+        さらに、第三弾(レーン故障の自動連携)・第四弾(会員の整備依頼と完了報告の双方向連携)とのAPI連携もAPIキー認証付きで実装し、動作確認まで完了しています。
+      </p>
+
+      <h2>振り返って</h2>
+      <p>
+        4つの拡張機能のうち、「予定通り新規実装した」のは実質1つだけでした。残りは「すでにあった」「なくても回る」「別の形にした」という結果です。
+      </p>
+      <blockquote>
+        作ることより、作らない判断ができることのほうが、実は難しいのかもしれない。
+      </blockquote>
+      <p>
+        最初に立てた計画とズレることは、これまでの開発でも何度もありました。それでも今回は、ズレに気づいた時点でちゃんと立ち止まって、コードを見直して、正しい現状に合わせて計画を書き直せたことが、一番の成果だったと思います。
+      </p>
+    </main>
+
+    <div class="nav-links">
+      <a href="devlog-03.html" class="back-link">← 前回(#03)を読む</a>
+      <a href="index.html" class="back-link">トップページへ戻る →</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Junko Takahashi. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
